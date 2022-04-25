@@ -1,0 +1,11 @@
+{
+  "name": "cs103a-cpa02",
+  "version": "1.0.0",
+  "description": "Cosi 103a CPA2",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Naimul Hasan",
+  "license": "ISC"
+}
