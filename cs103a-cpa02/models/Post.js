@@ -25,10 +25,10 @@ const postSchema = new mongoose.Schema(
         ref: 'Profile',
       },
     ],
-    comment: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Comment',
-    },
+    // comment: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: 'Comment',
+    // },
   },
 );
 
