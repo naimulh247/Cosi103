@@ -18,9 +18,6 @@ const profileSchema = new mongoose.Schema(
       enum: ['public', 'private'],
       default: 'public',
     },
-    name: {
-      type: String,
-    },
     username: {
       type: String,
       required: [true, 'Username is required'],

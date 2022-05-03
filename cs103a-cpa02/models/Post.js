@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Profile = require('./Profile');
+const User = require('./User');
 
 const postSchema = new mongoose.Schema(
   {
@@ -7,22 +8,19 @@ const postSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
-    profile: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Profile',
+      ref: 'User',
     },
-    caption: {
+    content: {
       type: String,
       trim: true,
-    },
-    location: {
-      type: String,
     },
     hashtag: Array,
     likes: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Profile',
+        ref: 'User',
       },
     ],
     // comment: {
@@ -34,14 +32,14 @@ const postSchema = new mongoose.Schema(
 
 
 postSchema.pre('save', function (next) {
-  let caption = this.caption.replace(/\s/g, '');
-  console.log(caption);
-  let hashTagIndex = caption.indexOf('#');
+  let content = this.content.replace(/\s/g, '');
+  console.log(content);
+  let hashTagIndex = content.indexOf('#');
   if (hashTagIndex === -1) {
     this.hashtag = undefined;
     return next();
   }
-  let hashTagSplice = caption.slice(hashTagIndex);
+  let hashTagSplice = content.slice(hashTagIndex);
   //let res= hashTagSplice.replace(/#/, '').split('#');
 
   this.hashtag = hashTagSplice.replace(/#/, '').split('#');

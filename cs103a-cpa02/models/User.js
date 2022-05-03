@@ -1,9 +1,16 @@
 const mongoose = require( 'mongoose' );
 const Schema = mongoose.Schema;
 const validator = require('validator');
+const bcrypt = require('bcrypt')
+const Profile = require('./Profile')
 
 const userSchema = new mongoose.Schema(
   {
+    username: {
+      type: String,
+      required: [true, 'Username is required'],
+      unique: [true, 'Username is taken'],
+    },
     email: {
       type: String,
       trim: true,
@@ -13,15 +20,14 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      minlength: 8,
+      minlength: 3,
       required: [true, 'Password is required'],
-      select: false,
     },
-    active: {
-      type: Boolean,
-      default: true,
-      select: false,
-    },
+    // active: {
+    //   type: Boolean,
+    //   default: true,
+    //   select: false,
+    // },
   },
   { timestamps: true }
 );
@@ -38,9 +44,9 @@ userSchema.methods.comparePassword = async function (dbPassword, userPassword) {
   return await bcrypt.compare(dbPassword, userPassword);
 };
 
-UserSchema.post('save', async function (doc) {
-  await Profile.create({ user: doc._id });
-});
+// userSchema.post('save', async function (doc) {
+//   await Profile.create({ user: doc._id });
+// });
 
 const User = mongoose.model('User', userSchema);
 
